@@ -228,6 +228,18 @@ header p:hover {
     margin-right: 8px;
     font-size: 1em;
 }
+
+.skill i {
+    margin-right: 8px;
+    font-size: 1.2em;
+    color: #00bcd4;
+    transition: all 0.3s ease;
+}
+
+.skill:hover i {
+    color: #00e5ff;
+    transform: scale(1.1);
+}
 section {
     padding: 40px 20px;
     border-bottom: 1px solid #333;
