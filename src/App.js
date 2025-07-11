@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import openaiService from './openaiService';
 
 function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showChatResponse, setShowChatResponse] = useState(false);
   const [chatContent, setChatContent] = useState(null);
+  const [chatInput, setChatInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -13,6 +16,40 @@ function App() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  const handleChatSubmit = async (e) => {
+    e.preventDefault();
+    if (!chatInput.trim() || isLoading) return;
+
+    setIsLoading(true);
+    try {
+      const response = await openaiService.askQuestion(chatInput.trim());
+      setChatContent({
+        type: 'ai_response',
+        question: chatInput.trim(),
+        answer: response
+      });
+      setShowChatResponse(true);
+      setChatInput('');
+    } catch (error) {
+      console.error('Error getting AI response:', error);
+      setChatContent({
+        type: 'ai_response',
+        question: chatInput.trim(),
+        answer: 'Sorry, I encountered an error while processing your question. Please try again later.'
+      });
+      setShowChatResponse(true);
+      setChatInput('');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      handleChatSubmit(e);
+    }
+  };
 
   return (
     <div className="bg-black h-screen w-full max-h-screen max-w-full overflow-hidden relative">
@@ -96,18 +133,33 @@ function App() {
             </p>
             
             {/* Chat Input */}
-             <div className="mb-6 relative">
+             <form onSubmit={handleChatSubmit} className="mb-6 relative">
                <input
                  type="text"
+                 value={chatInput}
+                 onChange={(e) => setChatInput(e.target.value)}
+                 onKeyPress={handleKeyPress}
                  placeholder="Ask me anything about my portfolio..."
-                 className="w-full px-4 py-3 pr-12 rounded-lg bg-gray-800 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                 disabled={isLoading}
+                 className="w-full px-4 py-3 pr-12 rounded-lg bg-gray-800 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
                />
-               <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md transition-colors duration-200">
-                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                 </svg>
+               <button 
+                 type="submit"
+                 disabled={isLoading || !chatInput.trim()}
+                 className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white p-2 rounded-md transition-colors duration-200"
+               >
+                 {isLoading ? (
+                   <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                   </svg>
+                 ) : (
+                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                   </svg>
+                 )}
                </button>
-             </div>
+             </form>
             
             {/* Preset Chat Options */}
               <div className="flex flex-wrap justify-center gap-2">
@@ -598,6 +650,46 @@ function App() {
                             >
                               💼 Connect on LinkedIn
                             </a>
+                          </div>
+                        </div>
+                        
+                        {/* Bottom Close Button */}
+                        <div className="mt-6 text-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                          <button
+                            onClick={() => setShowChatResponse(false)}
+                            className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
+                          >
+                            ✕ Close
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {chatContent && chatContent.type === 'ai_response' && (
+                      <div className="animate-fade-in">
+                        {/* Question */}
+                        <div className="bg-blue-600 rounded-lg p-4 text-white mb-4 animate-slide-in-right">
+                          <div className="flex items-start gap-3">
+                            <div className="text-xl flex-shrink-0 mt-0.5">❓</div>
+                            <div>
+                              <h4 className="font-semibold mb-2">Your Question:</h4>
+                              <p className="text-blue-100 text-sm md:text-base leading-relaxed">
+                                {chatContent.question}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* AI Response */}
+                        <div className="bg-gray-800 rounded-lg p-4 text-white animate-slide-in-left">
+                          <div className="flex items-start gap-3">
+                            <div className="text-xl flex-shrink-0 mt-0.5">🤖</div>
+                            <div>
+                              <h4 className="font-semibold mb-2 text-green-400">AI Assistant:</h4>
+                              <p className="text-gray-200 text-sm md:text-base leading-relaxed whitespace-pre-line">
+                                {chatContent.answer}
+                              </p>
+                            </div>
                           </div>
                         </div>
                         
