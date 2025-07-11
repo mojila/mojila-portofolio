@@ -1,17 +1,5 @@
 import OpenAI from 'openai';
 
-// Load config
-const loadConfig = async () => {
-  try {
-    const response = await fetch('/config.json');
-    const config = await response.json();
-    return config;
-  } catch (error) {
-    console.error('Error loading config:', error);
-    throw new Error('Failed to load configuration');
-  }
-};
-
 // Resume content as context (extracted from PDF)
 const RESUME_CONTEXT = `
 Mojila alias Moch. Aji Laksono
@@ -108,10 +96,9 @@ class OpenAIService {
     if (this.initialized) return;
 
     try {
-      const config = await loadConfig();
       this.client = new OpenAI({
         baseURL: 'https://openrouter.ai/api/v1',
-        apiKey: config.openapi_key,
+        apiKey: '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',
         dangerouslyAllowBrowser: true, // Note: In production, use a backend proxy
         defaultHeaders: {
           "HTTP-Referer": "https://mojila.my.id",

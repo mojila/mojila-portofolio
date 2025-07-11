@@ -336,7 +336,10 @@ function App() {
                      </div>
                        
                      {/* Bottom Close Button */}
-                     <div className="mt-6 text-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                     <div className="mt-6 flex justify-between items-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                       <span className="text-gray-400 text-sm font-medium">
+                         Supported by Deepseek R1 🐳 (free 🤣)
+                       </span>
                        <button
                          onClick={() => setShowChatResponse(false)}
                          className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
@@ -430,7 +433,10 @@ function App() {
                       </div>
                       
                       {/* Bottom Close Button */}
-                      <div className="mt-6 text-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                      <div className="mt-6 flex justify-between items-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                        <span className="text-gray-400 text-sm font-medium">
+                          Supported by Deepseek R1 🐳 (free 🤣)
+                        </span>
                         <button
                           onClick={() => setShowChatResponse(false)}
                           className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
@@ -487,7 +493,10 @@ function App() {
                        ))}
                        
                        {/* Bottom Close Button */}
-                       <div className="mt-6 text-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                       <div className="mt-6 flex justify-between items-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                         <span className="text-gray-400 text-sm font-medium">
+                           Supported by Deepseek R1 🐳
+                         </span>
                          <button
                            onClick={() => setShowChatResponse(false)}
                            className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
@@ -544,7 +553,10 @@ function App() {
                        ))}
                        
                        {/* Bottom Close Button */}
-                       <div className="mt-6 text-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                       <div className="mt-6 flex justify-between items-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                         <span className="text-gray-400 text-sm font-medium">
+                           Supported by Deepseek R1 🐳
+                         </span>
                          <button
                            onClick={() => setShowChatResponse(false)}
                            className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
@@ -654,7 +666,10 @@ function App() {
                         </div>
                         
                         {/* Bottom Close Button */}
-                        <div className="mt-6 text-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                        <div className="mt-6 flex justify-between items-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                          <span className="text-gray-400 text-sm font-medium">
+                            Supported by Deepseek R1 🐳
+                          </span>
                           <button
                             onClick={() => setShowChatResponse(false)}
                             className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
@@ -694,7 +709,10 @@ function App() {
                         </div>
                         
                         {/* Bottom Close Button */}
-                        <div className="mt-6 text-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                        <div className="mt-6 flex justify-between items-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                          <span className="text-gray-400 text-sm font-medium">
+                            Supported by Deepseek R1 🐳
+                          </span>
                           <button
                             onClick={() => setShowChatResponse(false)}
                             className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
