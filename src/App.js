@@ -7,6 +7,16 @@ function App() {
   const [chatContent, setChatContent] = useState(null);
   const [chatInput, setChatInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  const images = [
+    '/asset/photo.jpeg',
+    '/asset/photo_1.jpg',
+    '/asset/photo_2.jpg',
+    '/asset/photo_3.png',
+    '/asset/photo_4.png',
+    '/asset/photo_5.png'
+  ];
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -16,6 +26,14 @@ function App() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   const handleChatSubmit = async (e) => {
     e.preventDefault();
@@ -128,6 +146,21 @@ function App() {
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
                Mojila
              </h1>
+             
+            {/* Photo Slideshow */}
+            <div className="mb-6 flex justify-center">
+              <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden shadow-2xl border-4 border-white">
+                <img 
+                   src={images[currentImageIndex]}
+                   alt={`Mojila portfolio ${currentImageIndex + 1}`}
+                   className="w-full h-full object-cover transition-opacity duration-300"
+                   style={{
+                     opacity: 1
+                   }}
+                 />
+              </div>
+            </div>
+            
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-8">
               Mojila Software Engineer Portofolio
             </p>
