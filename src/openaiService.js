@@ -98,7 +98,7 @@ class OpenAIService {
     try {
       this.client = new OpenAI({
         baseURL: 'https://openrouter.ai/api/v1',
-        apiKey: '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',
+        apiKey: '<API_KEY>',
         dangerouslyAllowBrowser: true, // Note: In production, use a backend proxy
         defaultHeaders: {
           "HTTP-Referer": "https://mojila.my.id",
