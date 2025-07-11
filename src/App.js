@@ -48,6 +48,20 @@ function App() {
           borderRadius: '50%',
         }}
       />
+      {/* Download Resume Button - Top-left */}
+      <div className="absolute top-4 left-4 z-10">
+        <a 
+          href="/asset/resume.pdf" 
+          download="Mojila_Resume.pdf"
+          className="inline-flex items-center px-3 py-2 bg-white hover:bg-gray-100 text-black text-sm font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
+        >
+          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Resume
+        </a>
+      </div>
+      
       {/* Logo - Top center on mobile, top-right on desktop */}
       <div className="absolute top-4 left-1/2 transform -translate-x-1/2 md:left-auto md:right-4 md:transform-none z-10">
         <img 
