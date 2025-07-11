@@ -181,10 +181,61 @@ function App() {
                 >
                   Work Experiences
                 </button>
-                <button className="px-3 py-1.5 bg-white hover:bg-gray-100 rounded-full text-black text-sm font-medium transition-colors duration-200 shadow-lg hover:shadow-xl">
+                <button 
+                  className="px-3 py-1.5 bg-white hover:bg-gray-100 rounded-full text-black text-sm font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
+                  onClick={() => {
+                    setChatContent({
+                      type: 'projects',
+                      projects: [
+                        {
+                          title: 'Omni-Channel CRM for Real Estate Company',
+                          role: 'Freelance Full-Stack Developer',
+                          location: 'Remote',
+                          period: 'Mar 2022 – May 2022',
+                          description: 'Built a custom communication platform to unify Gmail and WhatsApp messaging channels for a real estate sales team, enabling faster and more efficient customer engagement.',
+                          features: [
+                            { icon: '📧', text: 'Integrated Gmail and WhatsApp APIs to provide a centralized interface for managing client conversations.' },
+                            { icon: '👥', text: 'Developed agent assignment logic and unified customer profiles with full message history tracking.' },
+                            { icon: '⚡', text: 'Enabled real-time notifications and templated auto-responses, reducing agent response time by 40%.' },
+                            { icon: '🚀', text: 'Built using Node.js, React, MongoDB, and Express, deployed via Docker on a cloud server.' }
+                          ]
+                        },
+                        {
+                          title: 'Automated Bank Transfer Verification System',
+                          role: 'Freelance Full-Stack Developer',
+                          location: 'Remote',
+                          period: 'Mar 2022',
+                          description: 'Designed a webhook-based auto-verification tool that connects SMS banking via a 3G modem to a custom online bookstore platform, enabling real-time transaction confirmation without manual input.',
+                          features: [
+                            { icon: '📱', text: 'Used a 3G modem to receive and parse incoming SMS banking notifications.' },
+                            { icon: '🔍', text: 'Created a matching system to reconcile SMS messages with pending orders via transaction ID, amount, and timestamp.' },
+                            { icon: '✅', text: 'Automatically updated order status upon verified payments, reducing manual verification workload by 90%.' },
+                            { icon: '🛠️', text: 'Built with PHP and MariaDB, integrated with a custom CMS and admin dashboard for payment logging.' }
+                          ]
+                        }
+                      ]
+                    });
+                    setShowChatResponse(true);
+                  }}
+                >
                   Projects
                 </button>
-                <button className="px-3 py-1.5 bg-white hover:bg-gray-100 rounded-full text-black text-sm font-medium transition-colors duration-200 shadow-lg hover:shadow-xl">
+                <button 
+                  className="px-3 py-1.5 bg-white hover:bg-gray-100 rounded-full text-black text-sm font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
+                  onClick={() => {
+                    setChatContent({
+                      type: 'contacts',
+                      contacts: {
+                        location: 'Surabaya, Indonesia',
+                        phone: '+62 858 9290 9639',
+                        email: 'me.mojila@gmail.com',
+                        linkedin: 'linkedin.com/in/mojila',
+                        github: 'github.com/mojila'
+                      }
+                    });
+                    setShowChatResponse(true);
+                  }}
+                >
                   Contacts
                 </button>
               </div>
@@ -211,23 +262,35 @@ function App() {
               {/* Chat Content */}
                <div className="p-6">
                  {chatContent && chatContent.type === 'about' && (
-                   <div className="flex flex-col md:flex-row gap-6 items-start">
-                     {/* Photo */}
-                     <div className="flex-shrink-0">
-                       <img 
-                         src={chatContent.photo}
-                         alt="Mojila Photo"
-                         className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-blue-500 shadow-lg animate-fade-in"
-                       />
-                     </div>
-                     
-                     {/* Text Content */}
-                     <div className="flex-1">
-                       <div className="bg-gray-800 rounded-lg p-4 text-white animate-slide-in-right">
-                         <p className="text-sm md:text-base leading-relaxed whitespace-pre-line">
-                           {chatContent.text}
-                         </p>
+                   <div className="animate-fade-in">
+                     <div className="flex flex-col md:flex-row gap-6 items-start">
+                       {/* Photo */}
+                       <div className="flex-shrink-0">
+                         <img 
+                           src={chatContent.photo}
+                           alt="Mojila Photo"
+                           className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-blue-500 shadow-lg animate-fade-in"
+                         />
                        </div>
+                       
+                       {/* Text Content */}
+                       <div className="flex-1">
+                         <div className="bg-gray-800 rounded-lg p-4 text-white animate-slide-in-right">
+                           <p className="text-sm md:text-base leading-relaxed whitespace-pre-line">
+                             {chatContent.text}
+                           </p>
+                         </div>
+                       </div>
+                     </div>
+                       
+                     {/* Bottom Close Button */}
+                     <div className="mt-6 text-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                       <button
+                         onClick={() => setShowChatResponse(false)}
+                         className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
+                       >
+                         ✕ Close
+                       </button>
                      </div>
                    </div>
                  )}
@@ -313,55 +376,242 @@ function App() {
                           <span className="text-xs text-gray-300">Copilot</span>
                         </div>
                       </div>
+                      
+                      {/* Bottom Close Button */}
+                      <div className="mt-6 text-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                        <button
+                          onClick={() => setShowChatResponse(false)}
+                          className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
+                        >
+                          ✕ Close
+                        </button>
+                      </div>
                     </div>
                   )}
                   
                   {chatContent && chatContent.type === 'work' && (
-                    <div className="animate-fade-in space-y-8">
-                      {chatContent.experiences.map((experience, index) => (
-                        <div key={index} className="animate-slide-in-right" style={{animationDelay: `${index * 0.2}s`}}>
-                          {/* Company Header */}
-                          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-4 text-white mb-4">
-                            <div className="flex items-start justify-between flex-wrap gap-2">
-                              <div>
-                                <h3 className="text-lg md:text-xl font-bold mb-1">🏢 {experience.company}</h3>
-                                <p className="text-blue-100 font-medium">{experience.position}</p>
-                              </div>
-                              <div className="text-right text-sm text-blue-100">
-                                <p>📍 {experience.location}</p>
-                                <p>📅 {experience.period}</p>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          {/* Description */}
-                          <div className="bg-gray-800 rounded-lg p-4 text-white mb-4">
-                            <p className="text-sm md:text-base leading-relaxed">
-                              {experience.description}
-                            </p>
-                          </div>
-                          
-                          {/* Key Achievements */}
-                          <div className="bg-gray-800 rounded-lg p-4">
-                            <h4 className="text-white font-semibold mb-4 flex items-center">
-                              <span className="mr-2">🎯</span>
-                              Key Contributions:
-                            </h4>
-                            <div className="space-y-3">
-                              {experience.achievements.map((achievement, achievementIndex) => (
-                                <div key={achievementIndex} className="flex items-start gap-3 p-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
-                                  <span className="text-xl flex-shrink-0 mt-0.5">{achievement.icon}</span>
-                                  <p className="text-gray-200 text-sm md:text-base leading-relaxed">
-                                    {achievement.text}
-                                  </p>
-                                </div>
-                              ))}
-                            </div>
+                     <div className="animate-fade-in space-y-8">
+                       {chatContent.experiences.map((experience, index) => (
+                         <div key={index} className="animate-slide-in-right" style={{animationDelay: `${index * 0.2}s`}}>
+                           {/* Company Header */}
+                           <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-4 text-white mb-4">
+                             <div className="flex items-start justify-between flex-wrap gap-2">
+                               <div>
+                                 <h3 className="text-lg md:text-xl font-bold mb-1">🏢 {experience.company}</h3>
+                                 <p className="text-blue-100 font-medium">{experience.position}</p>
+                               </div>
+                               <div className="text-right text-sm text-blue-100">
+                                 <p>📍 {experience.location}</p>
+                                 <p>📅 {experience.period}</p>
+                               </div>
+                             </div>
+                           </div>
+                           
+                           {/* Description */}
+                           <div className="bg-gray-800 rounded-lg p-4 text-white mb-4">
+                             <p className="text-sm md:text-base leading-relaxed">
+                               {experience.description}
+                             </p>
+                           </div>
+                           
+                           {/* Key Achievements */}
+                           <div className="bg-gray-800 rounded-lg p-4">
+                             <h4 className="text-white font-semibold mb-4 flex items-center">
+                               <span className="mr-2">🎯</span>
+                               Key Contributions:
+                             </h4>
+                             <div className="space-y-3">
+                               {experience.achievements.map((achievement, achievementIndex) => (
+                                 <div key={achievementIndex} className="flex items-start gap-3 p-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                                   <span className="text-xl flex-shrink-0 mt-0.5">{achievement.icon}</span>
+                                   <p className="text-gray-200 text-sm md:text-base leading-relaxed">
+                                     {achievement.text}
+                                   </p>
+                                 </div>
+                               ))}
+                             </div>
+                           </div>
+                         </div>
+                       ))}
+                       
+                       {/* Bottom Close Button */}
+                       <div className="mt-6 text-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                         <button
+                           onClick={() => setShowChatResponse(false)}
+                           className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
+                         >
+                           ✕ Close
+                         </button>
+                       </div>
+                     </div>
+                   )}
+                   
+                   {chatContent && chatContent.type === 'projects' && (
+                     <div className="animate-fade-in space-y-8">
+                       {chatContent.projects.map((project, index) => (
+                         <div key={index} className="animate-slide-in-right" style={{animationDelay: `${index * 0.2}s`}}>
+                           {/* Project Header */}
+                           <div className="bg-gradient-to-r from-green-600 to-teal-600 rounded-lg p-4 text-white mb-4">
+                             <div className="flex items-start justify-between flex-wrap gap-2">
+                               <div>
+                                 <h3 className="text-lg md:text-xl font-bold mb-1">🏘️ {project.title}</h3>
+                                 <p className="text-green-100 font-medium">{project.role}</p>
+                               </div>
+                               <div className="text-right text-sm text-green-100">
+                                 <p>📍 {project.location}</p>
+                                 <p>📅 {project.period}</p>
+                               </div>
+                             </div>
+                           </div>
+                           
+                           {/* Description */}
+                           <div className="bg-gray-800 rounded-lg p-4 text-white mb-4">
+                             <p className="text-sm md:text-base leading-relaxed">
+                               {project.description}
+                             </p>
+                           </div>
+                           
+                           {/* Key Features */}
+                           <div className="bg-gray-800 rounded-lg p-4">
+                             <h4 className="text-white font-semibold mb-4 flex items-center">
+                               <span className="mr-2">✨</span>
+                               Key Features:
+                             </h4>
+                             <div className="space-y-3">
+                               {project.features.map((feature, featureIndex) => (
+                                 <div key={featureIndex} className="flex items-start gap-3 p-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors">
+                                   <span className="text-xl flex-shrink-0 mt-0.5">{feature.icon}</span>
+                                   <p className="text-gray-200 text-sm md:text-base leading-relaxed">
+                                     {feature.text}
+                                   </p>
+                                 </div>
+                               ))}
+                             </div>
+                           </div>
+                         </div>
+                       ))}
+                       
+                       {/* Bottom Close Button */}
+                       <div className="mt-6 text-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                         <button
+                           onClick={() => setShowChatResponse(false)}
+                           className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
+                         >
+                           ✕ Close
+                         </button>
+                       </div>
+                     </div>
+                   )}
+                   
+                   {chatContent && chatContent.type === 'contacts' && (
+                     <div className="animate-fade-in">
+                       {/* Header */}
+                       <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg p-4 text-white mb-6">
+                         <h3 className="text-lg md:text-xl font-bold mb-2 flex items-center">
+                           <span className="mr-2">📞</span>
+                           Let's Connect!
+                         </h3>
+                         <p className="text-purple-100">I'm always open to discussing new opportunities, collaborations, or just having a tech chat!</p>
+                       </div>
+                       
+                       {/* Contact Cards */}
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                         {/* Location */}
+                         <div className="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors animate-slide-in-left">
+                           <div className="flex items-center gap-3">
+                             <div className="text-2xl">📍</div>
+                             <div>
+                               <h4 className="text-white font-semibold">Location</h4>
+                               <p className="text-gray-300 text-sm">{chatContent.contacts.location}</p>
+                             </div>
+                           </div>
+                         </div>
+                         
+                         {/* Phone */}
+                         <div className="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors animate-slide-in-right">
+                           <div className="flex items-center gap-3">
+                             <div className="text-2xl">📱</div>
+                             <div>
+                               <h4 className="text-white font-semibold">Phone</h4>
+                               <a href={`tel:${chatContent.contacts.phone}`} className="text-blue-400 hover:text-blue-300 text-sm transition-colors">
+                                 {chatContent.contacts.phone}
+                               </a>
+                             </div>
+                           </div>
+                         </div>
+                         
+                         {/* Email */}
+                         <div className="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors animate-slide-in-left" style={{animationDelay: '0.1s'}}>
+                           <div className="flex items-center gap-3">
+                             <div className="text-2xl">📧</div>
+                             <div>
+                               <h4 className="text-white font-semibold">Email</h4>
+                               <a href={`mailto:${chatContent.contacts.email}`} className="text-blue-400 hover:text-blue-300 text-sm transition-colors">
+                                 {chatContent.contacts.email}
+                               </a>
+                             </div>
+                           </div>
+                         </div>
+                         
+                         {/* LinkedIn */}
+                         <div className="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors animate-slide-in-right" style={{animationDelay: '0.1s'}}>
+                           <div className="flex items-center gap-3">
+                             <div className="text-2xl">💼</div>
+                             <div>
+                               <h4 className="text-white font-semibold">LinkedIn</h4>
+                               <a href={`https://${chatContent.contacts.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 text-sm transition-colors">
+                                 {chatContent.contacts.linkedin}
+                               </a>
+                             </div>
+                           </div>
+                         </div>
+                         
+                         {/* GitHub */}
+                         <div className="bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition-colors animate-slide-in-left md:col-span-2" style={{animationDelay: '0.2s'}}>
+                           <div className="flex items-center gap-3">
+                             <div className="text-2xl">💻</div>
+                             <div>
+                               <h4 className="text-white font-semibold">GitHub</h4>
+                               <a href={`https://${chatContent.contacts.github}`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 text-sm transition-colors">
+                                 {chatContent.contacts.github}
+                               </a>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                       
+                       {/* Call to Action */}
+                        <div className="mt-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-4 text-center animate-fade-in" style={{animationDelay: '0.3s'}}>
+                          <p className="text-white mb-3">Ready to start a conversation?</p>
+                          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                            <a 
+                              href={`mailto:${chatContent.contacts.email}?subject=Let's Connect!&body=Hi Mojila, I'd love to discuss...`}
+                              className="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                            >
+                              📧 Send Email
+                            </a>
+                            <a 
+                              href={`https://${chatContent.contacts.linkedin}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                            >
+                              💼 Connect on LinkedIn
+                            </a>
                           </div>
                         </div>
-                      ))}
-                    </div>
-                  )}
+                        
+                        {/* Bottom Close Button */}
+                        <div className="mt-6 text-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                          <button
+                            onClick={() => setShowChatResponse(false)}
+                            className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
+                          >
+                            ✕ Close
+                          </button>
+                        </div>
+                      </div>
+                    )}
                </div>
             </div>
           </div>
