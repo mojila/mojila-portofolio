@@ -106,13 +106,17 @@ class OpenAIService {
 
   async initialize() {
     if (this.initialized) return;
-    
+
     try {
       const config = await loadConfig();
       this.client = new OpenAI({
-        baseURL: 'https://api.deepseek.com',
+        baseURL: 'https://openrouter.ai/api/v1',
         apiKey: config.openapi_key,
-        dangerouslyAllowBrowser: true // Note: In production, use a backend proxy
+        dangerouslyAllowBrowser: true, // Note: In production, use a backend proxy
+        defaultHeaders: {
+          "HTTP-Referer": "https://mojila.my.id",
+          "X-Title": "Mojila Portofolio",
+        }
       });
       this.initialized = true;
     } catch (error) {
@@ -128,7 +132,7 @@ class OpenAIService {
 
     try {
       const response = await this.client.chat.completions.create({
-        model: 'deepseek-chat',
+        model: 'deepseek/deepseek-r1:free',
         messages: [
           {
             role: 'system',
@@ -139,7 +143,6 @@ class OpenAIService {
             content: question
           }
         ],
-        "stream": false
       });
 
       return response.choices[0].message.content;
