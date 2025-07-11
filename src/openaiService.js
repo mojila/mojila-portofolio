@@ -110,7 +110,7 @@ class OpenAIService {
     try {
       const config = await loadConfig();
       this.client = new OpenAI({
-        baseURL: 'https://api.deepseek.com/chat/completions',
+        baseURL: 'https://api.deepseek.com',
         apiKey: config.openapi_key,
         dangerouslyAllowBrowser: true // Note: In production, use a backend proxy
       });
