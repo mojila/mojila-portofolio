@@ -12,6 +12,14 @@ RUN npm ci --only=production
 # Copy source code
 COPY . .
 
+# Build argument for API key
+ARG API_KEY
+
+# Replace placeholder with actual API key
+RUN if [ -n "$API_KEY" ]; then \
+        sed -i "s/<API_KEY>/$API_KEY/g" src/openaiService.js; \
+    fi
+
 # Build the app
 RUN npm run build
 
