@@ -78,6 +78,10 @@ EDUCATION & CERTIFICATIONS:
 - Continuous learning in modern technologies and best practices
 - Active participation in developer communities and open-source projects
 
+SALARY EXPECTATIONS:
+- USD: $10,000 - $15,000 per month
+- IDR: Rp 13,500,000 - Rp 16,000,000 per month
+
 PERSONAL INTERESTS:
 - Technology innovation and emerging trends
 - Open-source contribution and community involvement
