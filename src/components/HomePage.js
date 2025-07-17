@@ -94,7 +94,7 @@ const HomePage = () => {
             href="/asset/resume.pdf" 
             download="Mojila_Resume.pdf"
             className="inline-flex items-center px-3 py-2 bg-white hover:bg-gray-100 text-black text-sm font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
-            aria-label="Download Mojila's resume"
+            aria-label="Download Mojila's portfolio resume"
           >
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -104,7 +104,7 @@ const HomePage = () => {
           <Link 
             to="/about"
             className="inline-flex items-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
-            aria-label="Learn more about Mojila"
+            aria-label="Learn more about Mojila's portfolio"
           >
             About Me
           </Link>
@@ -161,7 +161,7 @@ const HomePage = () => {
           className="w-32 h-24 sm:w-40 sm:h-30 md:w-48 md:h-36 rounded-lg shadow-lg"
           controls
           preload="metadata"
-          aria-label="Mojila's video resume"
+          aria-label="Mojila's portfolio video resume"
         >
           <source src="/asset/video-resume.mov" type="video/mp4" />
           Your browser does not support the video tag.
@@ -173,7 +173,7 @@ const HomePage = () => {
          <div className="text-white text-center px-4 sm:px-6 md:px-8 max-w-2xl w-full">
             <header>
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                 Mojila
+                 Mojila Portfolio
                </h1>
             </header>
              
@@ -196,7 +196,7 @@ const HomePage = () => {
               </div>
               
               <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-8">
-                Full-Stack Developer & Technical Leader Portfolio
+                Full-Stack Developer & Technical Leader - Resume & Ask Questions
               </p>
             </section>
             
@@ -204,14 +204,14 @@ const HomePage = () => {
             <section>
               <h2 className="sr-only">Interactive Chat</h2>
               <form onSubmit={handleChatSubmit} className="mb-6 relative">
-                <label htmlFor="chat-input" className="sr-only">Ask me anything about my portfolio</label>
+                <label htmlFor="chat-input" className="sr-only">Ask me anything about my portfolio and resume</label>
                 <input
                   id="chat-input"
                   type="text"
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Ask me anything about my portfolio... 🚀"
+                  placeholder="Ask me anything about my portfolio & resume... 🚀"
                   disabled={isLoading || isStreaming}
                   className="w-full px-4 py-3 pr-12 rounded-lg bg-gray-800 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
                 />
@@ -232,7 +232,7 @@ const HomePage = () => {
               
               {/* Quick Actions */}
               <div>
-                <h3 className="sr-only">Quick Actions</h3>
+                <h3 className="sr-only">Quick Actions - Ask About Portfolio & Resume</h3>
                 <div className="flex flex-wrap justify-center gap-2">
                 <button 
                   onClick={() => {

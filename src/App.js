@@ -38,9 +38,9 @@ function App() {
         <Route path="/" element={
           <>
             <SEOHead 
-              title="Mojila - Full-Stack Developer & Technical Leader"
-              description="Mojila (Moch. Aji Laksono) - Experienced Technical Leader and Full-Stack Developer with 6+ years in building scalable web applications, backend systems, and developer infrastructure."
-              keywords="Mojila, Moch Aji Laksono, Full-Stack Developer, Technical Leader, Backend Developer, Go, Node.js, React, GCP, DevOps, Software Engineer"
+              title="Mojila Portfolio - Full-Stack Developer & Technical Leader Resume"
+              description="Mojila (Moch. Aji Laksono) - Experienced Technical Leader and Full-Stack Developer with 6+ years in building scalable web applications, backend systems, and developer infrastructure. View portfolio, download resume, and ask questions."
+              keywords="Mojila, portfolio, resume, ask, Moch Aji Laksono, Full-Stack Developer, Technical Leader, Backend Developer, Go, Node.js, React, GCP, DevOps, Software Engineer"
               canonicalUrl="https://mojila.my.id"
             />
             <HomePage />
@@ -49,9 +49,9 @@ function App() {
         <Route path="/about" element={
           <>
             <SEOHead 
-              title="About Mojila - Technical Leader & Full-Stack Developer"
-              description="Learn more about Mojila's professional journey, technical expertise, and leadership experience in software development and team management."
-              keywords="About Mojila, Technical Leader, Full-Stack Developer, Software Engineer, Backend Specialist, Team Leadership, DevOps"
+              title="About Mojila Portfolio - Technical Leader & Full-Stack Developer Resume"
+              description="Learn more about Mojila's professional journey, technical expertise, and leadership experience in software development and team management. View portfolio, download resume, and ask questions about experience."
+              keywords="About Mojila, portfolio, resume, ask, Technical Leader, Full-Stack Developer, Software Engineer, Backend Specialist, Team Leadership, DevOps"
               canonicalUrl="https://mojila.my.id/about"
             />
             <About />

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-black text-white py-16 px-4">
+    <div className="min-h-screen bg-black text-white py-16 px-4 pb-24">
       <div className="max-w-4xl mx-auto">
         {/* SEO-friendly header */}
         <section>
@@ -11,7 +11,7 @@ const About = () => {
             <div className="flex items-center justify-between mb-4">
               <div className="flex-1"></div>
               <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
-                About Mojila
+                About Mojila Portfolio
               </h1>
               <div className="flex-1 flex justify-end">
                 <Link 
@@ -23,7 +23,7 @@ const About = () => {
               </div>
             </div>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Full-Stack Developer & Technical Leader with 6+ years of experience
+              Full-Stack Developer & Technical Leader Resume - Ask Questions About My Experience
             </p>
           </header>
         </section>
@@ -131,16 +131,16 @@ const About = () => {
         <section>
           <div className="mt-16 text-center">
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8">
-              <h2 className="text-2xl font-bold mb-4">Let's Build Something Amazing Together</h2>
+              <h2 className="text-2xl font-bold mb-4">Ask Questions & Download Resume</h2>
               <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                I'm always open to discussing new opportunities, collaborations, or just having a tech chat. 
+                Ask questions about my portfolio, download my resume, or discuss new opportunities. 
                 Whether you need a technical leader, a backend specialist, or a full-stack developer, let's connect!
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a 
                   href="mailto:me.mojila@gmail.com?subject=Let's Connect!&body=Hi Mojila, I'd love to discuss..."
                   className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors inline-flex items-center justify-center"
-                  aria-label="Send email to Mojila"
+                  aria-label="Send email to ask Mojila about portfolio"
                 >
                   📧 Get In Touch
                 </a>
@@ -148,7 +148,7 @@ const About = () => {
                   href="/asset/resume.pdf"
                   download="Mojila_Resume.pdf"
                   className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-blue-600 transition-colors inline-flex items-center justify-center"
-                  aria-label="Download Mojila's resume"
+                  aria-label="Download Mojila's portfolio resume"
                 >
                   📄 Download Resume
                 </a>
