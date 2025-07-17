@@ -177,55 +177,63 @@ const HomePage = () => {
                </h1>
             </header>
              
-            {/* Photo Slideshow */}
-            <div className="mb-6 flex justify-center">
-              <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden shadow-2xl border-4 border-white">
-                <img 
-                   src={images[currentImageIndex]}
-                   alt={`Mojila portfolio photo ${currentImageIndex + 1}`}
-                   className="w-full h-full object-cover transition-opacity duration-300"
-                   style={{
-                     opacity: 1
-                   }}
-                   loading="lazy"
-                 />
+            {/* Portfolio Overview Section */}
+            <section>
+              <h2 className="sr-only">Portfolio Overview</h2>
+              {/* Photo Slideshow */}
+              <div className="mb-6 flex justify-center">
+                <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden shadow-2xl border-4 border-white">
+                  <img 
+                     src={images[currentImageIndex]}
+                     alt={`Mojila portfolio photo ${currentImageIndex + 1}`}
+                     className="w-full h-full object-cover transition-opacity duration-300"
+                     style={{
+                       opacity: 1
+                     }}
+                     loading="lazy"
+                   />
+                </div>
               </div>
-            </div>
+              
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-8">
+                Full-Stack Developer & Technical Leader Portfolio
+              </p>
+            </section>
             
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-8">
-              Full-Stack Developer & Technical Leader Portfolio
-            </p>
-            
-            {/* Chat Input */}
-             <form onSubmit={handleChatSubmit} className="mb-6 relative">
-               <label htmlFor="chat-input" className="sr-only">Ask me anything about my portfolio</label>
-               <input
-                 id="chat-input"
-                 type="text"
-                 value={chatInput}
-                 onChange={(e) => setChatInput(e.target.value)}
-                 onKeyPress={handleKeyPress}
-                 placeholder="Ask me anything about my portfolio... 🚀"
-                 disabled={isLoading || isStreaming}
-                 className="w-full px-4 py-3 pr-12 rounded-lg bg-gray-800 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
-               />
-               <button 
-                 type="submit"
-                 disabled={isLoading || isStreaming || !chatInput.trim()}
-                 className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white p-2 rounded-md transition-colors duration-200"
-                 aria-label="Submit question"
-               >
-                 {(isLoading || isStreaming) ? (
-                   <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                   </svg>
-                 ) : '🚀'}
-               </button>
-             </form>
-            
-            {/* Preset Chat Options */}
-              <div className="flex flex-wrap justify-center gap-2">
+            {/* Interactive Chat Section */}
+            <section>
+              <h2 className="sr-only">Interactive Chat</h2>
+              <form onSubmit={handleChatSubmit} className="mb-6 relative">
+                <label htmlFor="chat-input" className="sr-only">Ask me anything about my portfolio</label>
+                <input
+                  id="chat-input"
+                  type="text"
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Ask me anything about my portfolio... 🚀"
+                  disabled={isLoading || isStreaming}
+                  className="w-full px-4 py-3 pr-12 rounded-lg bg-gray-800 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+                <button 
+                  type="submit"
+                  disabled={isLoading || isStreaming || !chatInput.trim()}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white p-2 rounded-md transition-colors duration-200"
+                  aria-label="Submit question"
+                >
+                  {(isLoading || isStreaming) ? (
+                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  ) : '🚀'}
+                </button>
+              </form>
+              
+              {/* Quick Actions */}
+              <div>
+                <h3 className="sr-only">Quick Actions</h3>
+                <div className="flex flex-wrap justify-center gap-2">
                 <button 
                   onClick={() => {
                     setChatContent({
@@ -357,27 +365,30 @@ const HomePage = () => {
                 >
                   Contacts
                 </button>
+                </div>
               </div>
+            </section>
          </div>
         </main>
         
         {/* Chat Response Interface - keeping the existing implementation */}
         {showChatResponse && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-gray-900 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto animate-fade-in-up">
-              {/* Chat Header */}
-              <div className="flex justify-between items-center p-4 border-b border-gray-700">
-                <h3 className="text-white text-lg font-semibold">Chat Response</h3>
-                <button 
-                  onClick={() => setShowChatResponse(false)}
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                  aria-label="Close chat response"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
+          <section>
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+              <div className="bg-gray-900 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto animate-fade-in-up">
+                {/* Chat Header */}
+                <div className="flex justify-between items-center p-4 border-b border-gray-700">
+                  <h2 className="text-white text-lg font-semibold">Chat Response</h2>
+                  <button 
+                    onClick={() => setShowChatResponse(false)}
+                    className="text-gray-400 hover:text-white transition-colors duration-200"
+                    aria-label="Close chat response"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
               
               {/* Chat Content - keeping all existing chat content implementations */}
                <div className="p-6">
@@ -424,10 +435,10 @@ const HomePage = () => {
                    <div className="animate-fade-in">
                      {/* Header */}
                      <div className="bg-gradient-to-r from-green-600 to-blue-600 rounded-lg p-4 text-white mb-6">
-                       <h3 className="text-lg md:text-xl font-bold mb-2 flex items-center">
-                         <span className="mr-2">🚀</span>
-                         Technical Skills & Expertise
-                       </h3>
+                       <h4 className="text-lg md:text-xl font-bold mb-2 flex items-center">
+                       <span className="mr-2">🚀</span>
+                       Technical Skills & Expertise
+                     </h4>
                        <p className="text-green-100">My technical arsenal for building scalable solutions</p>
                      </div>
                      
@@ -480,10 +491,10 @@ const HomePage = () => {
                    <div className="animate-fade-in">
                      {/* Header */}
                      <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg p-4 text-white mb-6">
-                       <h3 className="text-lg md:text-xl font-bold mb-2 flex items-center">
-                         <span className="mr-2">💼</span>
-                         Professional Experience
-                       </h3>
+                       <h4 className="text-lg md:text-xl font-bold mb-2 flex items-center">
+                       <span className="mr-2">💼</span>
+                       Professional Experience
+                     </h4>
                        <p className="text-purple-100">My journey as a Technical Leader and Full-Stack Developer</p>
                      </div>
                      
@@ -493,7 +504,7 @@ const HomePage = () => {
                          <div key={index} className="bg-gray-800 rounded-lg p-6 animate-slide-in-left" style={{animationDelay: `${index * 0.2}s`}}>
                            {/* Company Header */}
                            <div className="border-b border-gray-700 pb-4 mb-4">
-                             <h4 className="text-white text-lg font-bold">{exp.company}</h4>
+                             <h5 className="text-white text-lg font-bold">{exp.company}</h5>
                              <p className="text-blue-400 font-semibold">{exp.position}</p>
                              <div className="flex flex-wrap gap-4 mt-2 text-sm text-gray-300">
                                <span>📍 {exp.location}</span>
@@ -508,7 +519,7 @@ const HomePage = () => {
                            
                            {/* Key Achievements */}
                            <div className="space-y-3">
-                             <h5 className="text-white font-semibold text-sm mb-3">🏆 Key Achievements:</h5>
+                             <h6 className="text-white font-semibold text-sm mb-3">🏆 Key Achievements:</h6>
                              {exp.achievements.map((achievement, achIndex) => (
                                <div key={achIndex} className="flex items-start gap-3 text-sm animate-fade-in" style={{animationDelay: `${(index * 0.2) + (achIndex * 0.1)}s`}}>
                                  <span className="text-lg flex-shrink-0">{achievement.icon}</span>
@@ -539,10 +550,10 @@ const HomePage = () => {
                    <div className="animate-fade-in">
                      {/* Header */}
                      <div className="bg-gradient-to-r from-orange-600 to-red-600 rounded-lg p-4 text-white mb-6">
-                       <h3 className="text-lg md:text-xl font-bold mb-2 flex items-center">
-                         <span className="mr-2">🚀</span>
-                         Featured Projects
-                       </h3>
+                       <h4 className="text-lg md:text-xl font-bold mb-2 flex items-center">
+                       <span className="mr-2">🚀</span>
+                       Featured Projects
+                     </h4>
                        <p className="text-orange-100">Real-world solutions I've built for clients</p>
                      </div>
                      
@@ -552,7 +563,7 @@ const HomePage = () => {
                          <div key={index} className="bg-gray-800 rounded-lg p-6 animate-slide-in-left" style={{animationDelay: `${index * 0.2}s`}}>
                            {/* Project Header */}
                            <div className="border-b border-gray-700 pb-4 mb-4">
-                             <h4 className="text-white text-lg font-bold">{project.title}</h4>
+                             <h5 className="text-white text-lg font-bold">{project.title}</h5>
                              <p className="text-orange-400 font-semibold">{project.role}</p>
                              <div className="flex flex-wrap gap-4 mt-2 text-sm text-gray-300">
                                <span>📍 {project.location}</span>
@@ -598,10 +609,10 @@ const HomePage = () => {
                    <div className="animate-fade-in">
                      {/* Header */}
                      <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg p-4 text-white mb-6">
-                       <h3 className="text-lg md:text-xl font-bold mb-2 flex items-center">
-                         <span className="mr-2">📞</span>
-                         Let's Connect!
-                       </h3>
+                       <h4 className="text-lg md:text-xl font-bold mb-2 flex items-center">
+                       <span className="mr-2">📞</span>
+                       Let's Connect!
+                     </h4>
                        <p className="text-purple-100">I'm always open to discussing new opportunities, collaborations, or just having a tech chat!</p>
                      </div>
                      
@@ -612,7 +623,7 @@ const HomePage = () => {
                          <div className="flex items-center gap-3">
                            <div className="text-2xl">📍</div>
                            <div>
-                             <h4 className="text-white font-semibold">Location</h4>
+                             <h5 className="text-white font-semibold">Location</h5>
                              <p className="text-gray-300 text-sm">{chatContent.contacts.location}</p>
                            </div>
                          </div>
@@ -623,7 +634,7 @@ const HomePage = () => {
                          <div className="flex items-center gap-3">
                            <div className="text-2xl">📱</div>
                            <div>
-                             <h4 className="text-white font-semibold">Phone</h4>
+                             <h5 className="text-white font-semibold">Phone</h5>
                              <a href={`tel:${chatContent.contacts.phone}`} className="text-blue-400 hover:text-blue-300 text-sm transition-colors">
                                {chatContent.contacts.phone}
                              </a>
@@ -636,7 +647,7 @@ const HomePage = () => {
                          <div className="flex items-center gap-3">
                            <div className="text-2xl">📧</div>
                            <div>
-                             <h4 className="text-white font-semibold">Email</h4>
+                             <h5 className="text-white font-semibold">Email</h5>
                              <a href={`mailto:${chatContent.contacts.email}`} className="text-blue-400 hover:text-blue-300 text-sm transition-colors">
                                {chatContent.contacts.email}
                              </a>
@@ -649,7 +660,7 @@ const HomePage = () => {
                          <div className="flex items-center gap-3">
                            <div className="text-2xl">💼</div>
                            <div>
-                             <h4 className="text-white font-semibold">LinkedIn</h4>
+                             <h5 className="text-white font-semibold">LinkedIn</h5>
                              <a href={`https://${chatContent.contacts.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 text-sm transition-colors">
                                {chatContent.contacts.linkedin}
                              </a>
@@ -662,7 +673,7 @@ const HomePage = () => {
                          <div className="flex items-center gap-3">
                            <div className="text-2xl">💻</div>
                            <div>
-                             <h4 className="text-white font-semibold">GitHub</h4>
+                             <h5 className="text-white font-semibold">GitHub</h5>
                              <a href={`https://${chatContent.contacts.github}`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 text-sm transition-colors">
                                {chatContent.contacts.github}
                              </a>
@@ -714,7 +725,7 @@ const HomePage = () => {
                        <div className="flex items-start gap-3">
                          <div className="text-xl flex-shrink-0 mt-0.5">❓</div>
                          <div>
-                           <h4 className="font-semibold mb-2">Your Question:</h4>
+                           <h5 className="font-semibold mb-2">Your Question:</h5>
                            <p className="text-blue-100 text-sm md:text-base leading-relaxed">
                              {chatContent.question}
                            </p>
@@ -727,7 +738,7 @@ const HomePage = () => {
                        <div className="flex items-start gap-3">
                          <div className="text-xl flex-shrink-0 mt-0.5">🤖</div>
                          <div className="flex-1">
-                           <h4 className="font-semibold mb-2 text-green-400 flex items-center gap-2">
+                           <h5 className="font-semibold mb-2 text-green-400 flex items-center gap-2">
                              AI Assistant:
                              {isStreaming && (
                                <div className="flex items-center gap-1">
@@ -736,7 +747,7 @@ const HomePage = () => {
                                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
                                </div>
                              )}
-                           </h4>
+                           </h5>
                            <div 
                              className="text-gray-200 text-sm md:text-base leading-relaxed prose prose-invert prose-sm md:prose-base max-w-none"
                              dangerouslySetInnerHTML={{ __html: chatContent.formattedAnswer || chatContent.answer }}
@@ -769,8 +780,9 @@ const HomePage = () => {
                    </div>
                  )}
                </div>
+              </div>
             </div>
-          </div>
+          </section>
         )}
     </div>
   );

@@ -6,30 +6,33 @@ const About = () => {
     <div className="min-h-screen bg-black text-white py-16 px-4">
       <div className="max-w-4xl mx-auto">
         {/* SEO-friendly header */}
-        <header className="text-center mb-12">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex-1"></div>
-            <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
-              About Mojila
-            </h1>
-            <div className="flex-1 flex justify-end">
-              <Link 
-                to="/" 
-                className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2"
-              >
-                ← Back to Home
-              </Link>
+        <section>
+          <header className="text-center mb-12">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex-1"></div>
+              <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                About Mojila
+              </h1>
+              <div className="flex-1 flex justify-end">
+                <Link 
+                  to="/" 
+                  className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2"
+                >
+                  ← Back to Home
+                </Link>
+              </div>
             </div>
-          </div>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Full-Stack Developer & Technical Leader with 6+ years of experience
-          </p>
-        </header>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Full-Stack Developer & Technical Leader with 6+ years of experience
+            </p>
+          </header>
+        </section>
 
         {/* Main content */}
-        <div className="grid md:grid-cols-2 gap-12 items-start">
-          {/* Photo and basic info */}
-          <div className="text-center md:text-left">
+        <section>
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            {/* Photo and basic info */}
+            <div className="text-center md:text-left">
             <div className="relative inline-block mb-6">
               <img 
                 src="/asset/photo.jpeg"
@@ -44,16 +47,16 @@ const About = () => {
             
             <div className="space-y-4">
               <h2 className="text-2xl font-semibold">Moch. Aji Laksono</h2>
-              <p className="text-blue-400 font-medium">Technical Leader & Backend Specialist</p>
+              <h3 className="text-blue-400 font-medium">Technical Leader & Backend Specialist</h3>
               <div className="flex flex-wrap justify-center md:justify-start gap-2">
                 <span className="bg-gray-800 px-3 py-1 rounded-full text-sm">📍 Surabaya, Indonesia</span>
                 <span className="bg-gray-800 px-3 py-1 rounded-full text-sm">🌐 Remote Available</span>
               </div>
             </div>
-          </div>
+            </div>
 
-          {/* Detailed description */}
-          <div className="space-y-6">
+            {/* Detailed description */}
+            <div className="space-y-6">
             <section>
               <h2 className="text-2xl font-semibold mb-4 text-blue-400">Professional Summary</h2>
               <p className="text-gray-300 leading-relaxed mb-4">
@@ -120,36 +123,39 @@ const About = () => {
                 that can handle real-world challenges while maintaining code quality and team productivity.
               </p>
             </section>
-          </div>
-        </div>
-
-        {/* Call to action */}
-        <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8">
-            <h2 className="text-2xl font-bold mb-4">Let's Build Something Amazing Together</h2>
-            <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-              I'm always open to discussing new opportunities, collaborations, or just having a tech chat. 
-              Whether you need a technical leader, a backend specialist, or a full-stack developer, let's connect!
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="mailto:me.mojila@gmail.com?subject=Let's Connect!&body=Hi Mojila, I'd love to discuss..."
-                className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors inline-flex items-center justify-center"
-                aria-label="Send email to Mojila"
-              >
-                📧 Get In Touch
-              </a>
-              <a 
-                href="/asset/resume.pdf"
-                download="Mojila_Resume.pdf"
-                className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-blue-600 transition-colors inline-flex items-center justify-center"
-                aria-label="Download Mojila's resume"
-              >
-                📄 Download Resume
-              </a>
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* Call to action */}
+        <section>
+          <div className="mt-16 text-center">
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8">
+              <h2 className="text-2xl font-bold mb-4">Let's Build Something Amazing Together</h2>
+              <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+                I'm always open to discussing new opportunities, collaborations, or just having a tech chat. 
+                Whether you need a technical leader, a backend specialist, or a full-stack developer, let's connect!
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a 
+                  href="mailto:me.mojila@gmail.com?subject=Let's Connect!&body=Hi Mojila, I'd love to discuss..."
+                  className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors inline-flex items-center justify-center"
+                  aria-label="Send email to Mojila"
+                >
+                  📧 Get In Touch
+                </a>
+                <a 
+                  href="/asset/resume.pdf"
+                  download="Mojila_Resume.pdf"
+                  className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-blue-600 transition-colors inline-flex items-center justify-center"
+                  aria-label="Download Mojila's resume"
+                >
+                  📄 Download Resume
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
