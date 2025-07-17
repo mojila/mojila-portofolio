@@ -7,6 +7,8 @@ function App() {
   const [chatContent, setChatContent] = useState(null);
   const [chatInput, setChatInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
+  const [streamingContent, setStreamingContent] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   const images = [
@@ -37,30 +39,42 @@ function App() {
 
   const handleChatSubmit = async (e) => {
     e.preventDefault();
-    if (!chatInput.trim() || isLoading) return;
+    if (!chatInput.trim() || isLoading || isStreaming) return;
 
+    const question = chatInput.trim();
     setIsLoading(true);
+    setIsStreaming(true);
+    setStreamingContent('');
+    setChatInput('');
+    
+    // Set up the initial chat content with the question
+    setChatContent({
+      type: 'ai_response',
+      question: question,
+      answer: '',
+      formattedAnswer: ''
+    });
+    setShowChatResponse(true);
+    setIsLoading(false);
+
     try {
-      const response = await openaiService.askQuestion(chatInput.trim());
-      setChatContent({
-        type: 'ai_response',
-        question: chatInput.trim(),
-        answer: response.raw,
-        formattedAnswer: response.formatted
+      await openaiService.askQuestionStream(question, (data) => {
+        setStreamingContent(data.accumulated);
+        setChatContent(prev => ({
+          ...prev,
+          answer: data.accumulated,
+          formattedAnswer: data.formatted
+        }));
       });
-      setShowChatResponse(true);
-      setChatInput('');
     } catch (error) {
       console.error('Error getting AI response:', error);
-      setChatContent({
-        type: 'ai_response',
-        question: chatInput.trim(),
-        answer: 'Sorry, I encountered an error while processing your question. Please try again later.'
-      });
-      setShowChatResponse(true);
-      setChatInput('');
+      setChatContent(prev => ({
+        ...prev,
+        answer: 'Sorry, I encountered an error while processing your question. Please try again later.',
+        formattedAnswer: 'Sorry, I encountered an error while processing your question. Please try again later.'
+      }));
     } finally {
-      setIsLoading(false);
+      setIsStreaming(false);
     }
   };
 
@@ -125,7 +139,7 @@ function App() {
         <img 
           src="/asset/logo.jpg" 
           alt="Mojila Logo" 
-          className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full object-cover shadow-lg border-2 border-white"
+          className="w-12 h-12 sm:w-16 sm:h-16 md:w-12 md:h-12 rounded-full object-cover shadow-lg border-2 border-white"
         />
       </div>
       
@@ -174,15 +188,15 @@ function App() {
                  onChange={(e) => setChatInput(e.target.value)}
                  onKeyPress={handleKeyPress}
                  placeholder="Ask me anything about my portfolio... 🚀"
-                 disabled={isLoading}
+                 disabled={isLoading || isStreaming}
                  className="w-full px-4 py-3 pr-12 rounded-lg bg-gray-800 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
                />
                <button 
                  type="submit"
-                 disabled={isLoading || !chatInput.trim()}
+                 disabled={isLoading || isStreaming || !chatInput.trim()}
                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white p-2 rounded-md transition-colors duration-200"
                >
-                 {isLoading ? (
+                 {(isLoading || isStreaming) ? (
                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -729,12 +743,30 @@ function App() {
                         <div className="bg-gray-800 rounded-lg p-4 text-white animate-slide-in-left">
                           <div className="flex items-start gap-3">
                             <div className="text-xl flex-shrink-0 mt-0.5">🤖</div>
-                            <div>
-                              <h4 className="font-semibold mb-2 text-green-400">AI Assistant:</h4>
+                            <div className="flex-1">
+                              <h4 className="font-semibold mb-2 text-green-400 flex items-center gap-2">
+                                AI Assistant:
+                                {isStreaming && (
+                                  <div className="flex items-center gap-1">
+                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
+                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+                                  </div>
+                                )}
+                              </h4>
                               <div 
                                 className="text-gray-200 text-sm md:text-base leading-relaxed prose prose-invert prose-sm md:prose-base max-w-none"
                                 dangerouslySetInnerHTML={{ __html: chatContent.formattedAnswer || chatContent.answer }}
                               />
+                              {isStreaming && !chatContent.answer && (
+                                <div className="text-gray-400 italic text-sm flex items-center gap-2">
+                                  <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                  </svg>
+                                  Thinking...
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>
