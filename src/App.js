@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import About from './components/About';
 
 // SEO Head component for dynamic meta tags
 const SEOHead = ({ title, description, keywords, canonicalUrl }) => {
-  React.useEffect(() => {
+  useEffect(() => {
     // Update document title
     document.title = title;
     
