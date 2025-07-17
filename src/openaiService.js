@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+import { marked } from 'marked';
 
 // Resume content as context (extracted from PDF)
 const RESUME_CONTEXT = `
@@ -81,6 +82,9 @@ EDUCATION & CERTIFICATIONS:
 SALARY EXPECTATIONS:
 - USD: $10,000 - $15,000 per month
 - IDR: Rp 13,500,000 - Rp 16,000,000 per month
+- Negotiable
+- IDR: Rp 200,000 / hour for Freelance
+- USD: $200 / hour for Freelance
 
 PERSONAL INTERESTS:
 - Technology innovation and emerging trends
@@ -102,7 +106,7 @@ class OpenAIService {
     try {
       this.client = new OpenAI({
         baseURL: 'https://openrouter.ai/api/v1',
-        apiKey: '<API_KEY>',
+        apiKey: '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',
         dangerouslyAllowBrowser: true, // Note: In production, use a backend proxy
         defaultHeaders: {
           "HTTP-Referer": "https://mojila.my.id",
@@ -113,6 +117,24 @@ class OpenAIService {
     } catch (error) {
       console.error('Failed to initialize OpenAI service:', error);
       throw error;
+    }
+  }
+
+  parseMarkdown(content) {
+    try {
+      // Configure marked options for better formatting
+      marked.setOptions({
+        breaks: true, // Convert line breaks to <br>
+        gfm: true, // Enable GitHub Flavored Markdown
+        sanitize: false, // Allow HTML (be careful in production)
+        smartLists: true,
+        smartypants: true
+      });
+      
+      return marked(content);
+    } catch (error) {
+      console.error('Error parsing markdown:', error);
+      return content; // Return original content if parsing fails
     }
   }
 
@@ -127,7 +149,7 @@ class OpenAIService {
         messages: [
           {
             role: 'system',
-            content: `You are an AI assistant representing Mojila (Moch. Aji Laksono), a skilled Software Engineer. Use the following resume information to answer questions about Mojila's background, skills, experience, and projects. Be professional, friendly, and informative. If asked about something not in the resume, politely mention that you don't have that specific information but can discuss what's available in the resume.\n\nResume Information:\n${RESUME_CONTEXT}`
+            content: `You are an AI assistant representing Mojila (Moch. Aji Laksono), a skilled Software Engineer. Use the following resume information to answer questions about Mojila's background, skills, experience, and projects. Be professional, friendly, and informative. If asked about something not in the resume, politely mention that you don't have that specific information but can discuss what's available in the resume. Format your responses using markdown for better readability (use headers, lists, bold text, etc. where appropriate).\n\nResume Information:\n${RESUME_CONTEXT}`
           },
           {
             role: 'user',
@@ -136,7 +158,57 @@ class OpenAIService {
         ],
       });
 
-      return response.choices[0].message.content;
+      const rawContent = response.choices[0].message.content;
+      return {
+        raw: rawContent,
+        formatted: this.parseMarkdown(rawContent)
+      };
+    } catch (error) {
+      console.error('Error calling OpenAI API:', error);
+      throw new Error('Failed to get response from AI assistant');
+    }
+  }
+
+  async askQuestionStream(question, onChunk) {
+    if (!this.initialized) {
+      await this.initialize();
+    }
+
+    try {
+      const stream = await this.client.chat.completions.create({
+        model: 'deepseek/deepseek-r1:free',
+        messages: [
+          {
+            role: 'system',
+            content: `You are an AI assistant representing Mojila (Moch. Aji Laksono), a skilled Software Engineer. Use the following resume information to answer questions about Mojila's background, skills, experience, and projects. Be professional, friendly, and informative. If asked about something not in the resume, politely mention that you don't have that specific information but can discuss what's available in the resume. Format your responses using markdown for better readability (use headers, lists, bold text, etc. where appropriate).\n\nResume Information:\n${RESUME_CONTEXT}`
+          },
+          {
+            role: 'user',
+            content: question
+          }
+        ],
+        stream: true,
+      });
+
+      let fullContent = '';
+      
+      for await (const chunk of stream) {
+        const content = chunk.choices[0]?.delta?.content || '';
+        if (content) {
+          fullContent += content;
+          // Call the callback with both the chunk and the accumulated content
+          onChunk({
+            chunk: content,
+            accumulated: fullContent,
+            formatted: this.parseMarkdown(fullContent)
+          });
+        }
+      }
+
+      return {
+        raw: fullContent,
+        formatted: this.parseMarkdown(fullContent)
+      };
     } catch (error) {
       console.error('Error calling OpenAI API:', error);
       throw new Error('Failed to get response from AI assistant');
