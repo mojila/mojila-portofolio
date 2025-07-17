@@ -28,7 +28,7 @@ if [ $? -eq 0 ]; then
     echo "✅ Docker image built successfully!"
     echo ""
     echo "To run the container on port 80:"
-    echo "  docker run -d -p 80:80 --name mojila-portfolio mojila-portfolio"
+    echo "  docker run -d -p 8080:80 --restart always --name mojila-portfolio mojila-portfolio"
     echo ""
     echo "Or use docker-compose (recommended):"
     echo "  docker-compose up -d"

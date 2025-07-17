@@ -7,7 +7,7 @@ services:
       args:
         API_KEY: ${API_KEY}
     ports:
-      - "80:80"
+      - "8080:80"
     restart: unless-stopped
     container_name: mojila-portfolio
     env_file:
