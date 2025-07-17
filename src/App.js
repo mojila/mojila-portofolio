@@ -45,7 +45,8 @@ function App() {
       setChatContent({
         type: 'ai_response',
         question: chatInput.trim(),
-        answer: response
+        answer: response.raw,
+        formattedAnswer: response.formatted
       });
       setShowChatResponse(true);
       setChatInput('');
@@ -730,9 +731,10 @@ function App() {
                             <div className="text-xl flex-shrink-0 mt-0.5">🤖</div>
                             <div>
                               <h4 className="font-semibold mb-2 text-green-400">AI Assistant:</h4>
-                              <p className="text-gray-200 text-sm md:text-base leading-relaxed whitespace-pre-line">
-                                {chatContent.answer}
-                              </p>
+                              <div 
+                                className="text-gray-200 text-sm md:text-base leading-relaxed prose prose-invert prose-sm md:prose-base max-w-none"
+                                dangerouslySetInnerHTML={{ __html: chatContent.formattedAnswer || chatContent.answer }}
+                              />
                             </div>
                           </div>
                         </div>
