@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PDFViewer from './PDFViewer';
 
 const About = () => {
+  const [showPDFViewer, setShowPDFViewer] = useState(false);
   return (
     <div className="min-h-screen bg-black text-white py-16 px-4 pb-24">
       <div className="max-w-4xl mx-auto">
@@ -144,19 +146,27 @@ const About = () => {
                 >
                   📧 Get In Touch
                 </a>
-                <a 
-                  href="/asset/resume.pdf"
-                  download="Mojila_Resume.pdf"
+                <button 
+                  onClick={() => setShowPDFViewer(true)}
                   className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-blue-600 transition-colors inline-flex items-center justify-center"
-                  aria-label="Download Mojila's portfolio resume"
+                  aria-label="View Mojila's portfolio resume"
                 >
-                  📄 Download Resume
-                </a>
+                  📄 View Resume
+                </button>
               </div>
             </div>
           </div>
         </section>
       </div>
+      
+      {/* PDF Viewer Modal */}
+      {showPDFViewer && (
+        <PDFViewer
+          pdfUrl="/asset/resume.pdf"
+          fileName="Mojila_Resume.pdf"
+          onClose={() => setShowPDFViewer(false)}
+        />
+      )}
     </div>
   );
 };
