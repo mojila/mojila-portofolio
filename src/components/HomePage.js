@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import openaiService from '../openaiService';
+import PDFViewer from './PDFViewer';
 
 const HomePage = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [showChatResponse, setShowChatResponse] = useState(false);
-  const [chatContent, setChatContent] = useState(null);
   const [chatInput, setChatInput] = useState('');
+  const [chatContent, setChatContent] = useState(null);
+  const [showChatResponse, setShowChatResponse] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
+  const [showPDFViewer, setShowPDFViewer] = useState(false);
   const [streamingContent, setStreamingContent] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
@@ -59,14 +61,12 @@ const HomePage = () => {
     setIsLoading(false);
 
     try {
-      await openaiService.askQuestionStream(question, (data) => {
-        setStreamingContent(data.accumulated);
-        setChatContent(prev => ({
-          ...prev,
-          answer: data.accumulated,
-          formattedAnswer: data.formatted
-        }));
-      });
+      const response = await openaiService.askQuestion(question);
+      setChatContent(prev => ({
+        ...prev,
+        answer: response.raw,
+        formattedAnswer: response.formatted
+      }));
     } catch (error) {
       console.error('Error getting AI response:', error);
       setChatContent(prev => ({
@@ -90,17 +90,16 @@ const HomePage = () => {
       {/* SEO-friendly navigation */}
       <nav className="absolute top-4 left-4 right-4 z-20 flex justify-between items-center">
         <div className="flex items-center space-x-4">
-          <a 
-            href="/asset/resume.pdf" 
-            download="Mojila_Resume.pdf"
+          <button 
+            onClick={() => setShowPDFViewer(true)}
             className="inline-flex items-center px-3 py-2 bg-white hover:bg-gray-100 text-black text-sm font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
-            aria-label="Download Mojila's portfolio resume"
+            aria-label="View Mojila's portfolio resume"
           >
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             Resume
-          </a>
+          </button>
           <Link 
             to="/about"
             className="inline-flex items-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
@@ -783,6 +782,15 @@ const HomePage = () => {
               </div>
             </div>
           </section>
+        )}
+        
+        {/* PDF Viewer Modal */}
+        {showPDFViewer && (
+          <PDFViewer
+            pdfUrl="/asset/resume.pdf"
+            fileName="Mojila_Resume.pdf"
+            onClose={() => setShowPDFViewer(false)}
+          />
         )}
     </div>
   );
