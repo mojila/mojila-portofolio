@@ -18,10 +18,10 @@ fi
 # Build the Docker image with API_KEY build argument
 if [ -n "$API_KEY" ]; then
     echo "Building with API_KEY from .env file..."
-    docker build --build-arg API_KEY="$API_KEY" -t mojila-portfolio .
+    docker build --build-arg API_KEY="$API_KEY" -t mojila-portfolio:latest .
 else
     echo "Building without API_KEY (placeholder will remain)..."
-    docker build -t mojila-portfolio .
+    docker build -t mojila-portfolio:latest .
 fi
 
 if [ $? -eq 0 ]; then
