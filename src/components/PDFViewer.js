@@ -1,45 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
-
-// Set up the worker
-pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const PDFViewer = ({ pdfUrl, fileName = 'document.pdf', onClose }) => {
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [useIframe, setUseIframe] = useState(false);
 
   useEffect(() => {
     // Reset states when pdfUrl changes
-    setNumPages(null);
-    setPageNumber(1);
     setLoading(true);
     setError(null);
-    setUseIframe(false);
+    
+    // Simulate loading time for iframe
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    
+    return () => clearTimeout(timer);
   }, [pdfUrl]);
 
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
+  const handleIframeError = () => {
+    setError('Failed to load PDF. Please try downloading it instead.');
     setLoading(false);
-  }
-
-  function onDocumentLoadError(error) {
-    console.error('PDF load error:', error);
-    console.error('PDF URL:', pdfUrl);
-    console.error('Worker src:', pdfjs.GlobalWorkerOptions.workerSrc);
-    setError(`Failed to load PDF with react-pdf. Switching to iframe viewer.`);
-    setLoading(false);
-    setUseIframe(true);
-  }
-
-  const goToPrevPage = () => {
-    setPageNumber(prev => Math.max(prev - 1, 1));
-  };
-
-  const goToNextPage = () => {
-    setPageNumber(prev => Math.min(prev + 1, numPages));
   };
 
   const downloadPDF = () => {
@@ -112,24 +92,7 @@ const PDFViewer = ({ pdfUrl, fileName = 'document.pdf', onClose }) => {
             </div>
           )}
 
-          {!loading && !error && !useIframe && (
-            <div className="flex flex-col items-center">
-              <Document
-                file={pdfUrl}
-                onLoadSuccess={onDocumentLoadSuccess}
-                onLoadError={onDocumentLoadError}
-                className="shadow-lg"
-              >
-                <Page
-                  pageNumber={pageNumber}
-                  width={Math.min(800, window.innerWidth - 100)}
-                  className="border border-gray-300"
-                />
-              </Document>
-            </div>
-          )}
-
-          {useIframe && (
+          {!loading && !error && (
             <div className="flex flex-col items-center h-full">
               <iframe
                 src={pdfUrl}
@@ -137,44 +100,14 @@ const PDFViewer = ({ pdfUrl, fileName = 'document.pdf', onClose }) => {
                 height="600px"
                 className="border border-gray-300 rounded"
                 title="PDF Viewer"
+                onError={handleIframeError}
               />
             </div>
           )}
         </div>
 
-        {/* Navigation */}
-        {!loading && !error && numPages && !useIframe && (
-          <div className="flex items-center justify-between p-4 border-t border-gray-200 bg-gray-50">
-            <button
-              onClick={goToPrevPage}
-              disabled={pageNumber <= 1}
-              className="inline-flex items-center px-3 py-2 bg-gray-600 hover:bg-gray-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-colors duration-200"
-            >
-              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Previous
-            </button>
-            
-            <span className="text-sm text-gray-600">
-              Page {pageNumber} of {numPages}
-            </span>
-            
-            <button
-              onClick={goToNextPage}
-              disabled={pageNumber >= numPages}
-              className="inline-flex items-center px-3 py-2 bg-gray-600 hover:bg-gray-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-colors duration-200"
-            >
-              Next
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-        )}
-
-        {/* Iframe Navigation Info */}
-        {useIframe && (
+        {/* Navigation Info */}
+        {!loading && !error && (
           <div className="p-4 border-t border-gray-200 bg-gray-50 text-center">
             <span className="text-sm text-gray-600">
               PDF is displayed using browser's built-in viewer. Use browser controls for navigation.
