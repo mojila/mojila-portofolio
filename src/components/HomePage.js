@@ -326,6 +326,32 @@ const HomePage = () => {
                       type: 'projects',
                       projects: [
                         {
+                          title: 'Dyslexia Assessment Device with Retina Movement Detection Analysis',
+                          role: 'Freelance Go & React.js Developer',
+                          location: 'Remote',
+                          period: 'October 2024 – November 2024',
+                          description: 'Developed a comprehensive assessment system for dyslexia testing integrated with advanced retina movement tracking technology to provide accurate diagnostic capabilities.',
+                          features: [
+                            { icon: '👁️', text: 'Developed Assessment UI and Backend for Dyslexia Test Device integrated with Retina Movement Tracker.' },
+                            { icon: '🧠', text: 'Implemented Expert System for Dyslexia Symptoms Analysis using advanced algorithms.' },
+                            { icon: '⚛️', text: 'Built responsive frontend interface using React.js for seamless user experience.' },
+                            { icon: '🐹', text: 'Developed high-performance backend services using Go for real-time data processing.' }
+                          ]
+                        },
+                        {
+                          title: 'Online Game "Paw Rumble" Backend Service',
+                          role: 'Freelance Go Developer',
+                          location: 'Remote',
+                          period: 'January 2024',
+                          description: 'Built robust backend infrastructure for an online gaming platform, focusing on payment processing and in-game item management systems.',
+                          features: [
+                            { icon: '💳', text: 'Developed Payment Top-up service with secure transaction processing and validation.' },
+                            { icon: '🛍️', text: 'Built In-game store items management system with inventory tracking and user purchases.' },
+                            { icon: '🔗', text: 'Integration Payment Service with Codashop and DuniaGames for seamless payment experience.' },
+                            { icon: '🐹', text: 'Implemented using Go for high-performance concurrent request handling and scalability.' }
+                          ]
+                        },
+                        {
                           title: 'Omni-Channel CRM for Real Estate Company',
                           role: 'Freelance Full-Stack Developer',
                           location: 'Remote',

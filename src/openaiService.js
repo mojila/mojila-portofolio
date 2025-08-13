@@ -50,9 +50,35 @@ WORK EXPERIENCE:
 
 FREELANCE PROJECTS:
 
-1. Omni-Channel CRM for Real Estate Company
+1. Dyslexia Assessment Device with Retina Movement Detection Analysis
+   Role: Freelance Go & React.js Developer
+   Period: October 2024 - November 2024
+   Location: Remote
+   
+   Key Features:
+   - Developed Assessment UI and Backend for Dyslexia Test Device integrated with Retina Movement Tracker
+   - Implemented Expert System for Dyslexia Symptoms Analysis using advanced algorithms
+   - Built responsive frontend interface using React.js for seamless user experience
+   - Developed high-performance backend services using Go for real-time data processing
+   - Integration with medical device hardware for retina tracking analysis
+   - Advanced diagnostic capabilities with machine learning algorithms
+
+2. Online Game "Paw Rumble" Backend Service
+   Role: Freelance Go Developer
+   Period: January 2024
+   Location: Remote
+   
+   Key Features:
+   - Developed Payment Top-up service with secure transaction processing and validation
+   - Built In-game store items management system with inventory tracking and user purchases
+   - Integration Payment Service with Codashop and DuniaGames for seamless payment experience
+   - Implemented using Go for high-performance concurrent request handling and scalability
+   - Real-time game state management and player data synchronization
+   - Secure API endpoints for game client integration
+
+3. Omni-Channel CRM for Real Estate Company
    Role: Full-Stack Developer
-   Period: Freelance Project
+   Period: March 2022 - May 2022
    Location: Remote
    
    Key Features:
@@ -62,9 +88,9 @@ FREELANCE PROJECTS:
    - Mobile-responsive design for field agents
    - Integration with third-party real estate platforms
 
-2. Automated Bank Transfer Verification System
+4. Automated Bank Transfer Verification System
    Role: Backend Developer
-   Period: Freelance Project
+   Period: March 2022
    Location: Remote
    
    Key Features:
