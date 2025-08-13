@@ -107,6 +107,19 @@ const HomePage = () => {
           >
             About Me
           </Link>
+          <Link 
+            to="/bapak-kos"
+            className="inline-flex items-center px-3 py-2 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white text-sm font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
+            aria-label="View Bapak Kos App - Home Rent Management Android App"
+          >
+            <img 
+              src="/asset/bapak-kos/bapak-kos-logo.png" 
+              alt="Bapak Kos App Logo" 
+              className="w-4 h-4 mr-2 rounded object-cover"
+              loading="lazy"
+            />
+            Bapak Kos App
+          </Link>
         </div>
         
         <div className="flex items-center space-x-4">

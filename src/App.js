@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import About from './components/About';
+import BapakKos from './components/BapakKos';
 
 // SEO Head component for dynamic meta tags
 const SEOHead = ({ title, description, keywords, canonicalUrl }) => {
@@ -55,6 +56,17 @@ function App() {
               canonicalUrl="https://mojila.my.id/about"
             />
             <About />
+          </>
+        } />
+        <Route path="/bapak-kos" element={
+          <>
+            <SEOHead 
+              title="Bapak Kos App - Home Rent Management Android App by Mojila"
+              description="Download Bapak Kos Android app for home rent management and accounting. Features bill creation, earnings summary, and thermal printing for landlords and property managers."
+              keywords="Bapak Kos, Android app, home rent management, property management, bill creation, thermal printing, landlord app, rental management"
+              canonicalUrl="https://mojila.my.id/bapak-kos"
+            />
+            <BapakKos />
           </>
         } />
       </Routes>
