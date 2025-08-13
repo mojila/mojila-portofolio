@@ -242,4 +242,5 @@ class OpenAIService {
   }
 }
 
-export default new OpenAIService();
+const openAIService = new OpenAIService();
+export default openAIService;

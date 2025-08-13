@@ -11,7 +11,7 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
   const [showPDFViewer, setShowPDFViewer] = useState(false);
-  const [streamingContent, setStreamingContent] = useState('');
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   const images = [
@@ -47,7 +47,6 @@ const HomePage = () => {
     const question = chatInput.trim();
     setIsLoading(true);
     setIsStreaming(true);
-    setStreamingContent('');
     setChatInput('');
     
     // Set up the initial chat content with the question
@@ -197,7 +196,7 @@ const HomePage = () => {
                 <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden shadow-2xl border-4 border-white">
                   <img 
                      src={images[currentImageIndex]}
-                     alt={`Mojila portfolio photo ${currentImageIndex + 1}`}
+                     alt={`Mojila ${currentImageIndex + 1}`}
                      className="w-full h-full object-cover transition-opacity duration-300"
                      style={{
                        opacity: 1
@@ -438,7 +437,7 @@ const HomePage = () => {
                        <div className="flex-shrink-0">
                          <img 
                            src={chatContent.photo}
-                           alt="Mojila Photo"
+                           alt="Mojila"
                            className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-blue-500 shadow-lg animate-fade-in"
                            loading="lazy"
                          />
